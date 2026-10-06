@@ -650,7 +650,7 @@ with st.sidebar:
         default_payload = float(model_info["payload_kg"])
         default_speed = float(model_info["speed_kmh"])
     else:
-        default_range = 40.0
+        default_range = 90.0
         default_payload = 5.0
         default_speed = float(model_info.get("speed_kmh", 80.0))
 
