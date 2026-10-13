@@ -289,4 +289,6 @@ streamlit run interactive_model_app.py
 
 **Project Team:** Zehao Li
 
-**Supervisors:** Prof. Roorda, Prof. Tang 
+**Supervisors:** Prof. Matthew Roorda (University of Toronto), Prof. Yili Tang (University of Sherbrooke)
+
+This research is supported by NSERC-CREATE: Smart Mobility Advanced Research & Training led by Prof. Gunho Sohn at York University. 
