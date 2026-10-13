@@ -191,7 +191,7 @@ A merged route is feasible only when it satisfies the distance-saving, payload, 
 
 **Project Team:** Zehao Li
 
-**Supervisors:** Prof. Roorda, Prof. Tang 
+**Supervisors:** Prof. Matthew Roorda, Prof. Yili Tang 
 
 ---
 
