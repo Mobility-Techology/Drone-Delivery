@@ -35,31 +35,27 @@ print(f"  Original CRS: {buildings.crs}")
 
 print("[2/5] Converting building polygons to centroid points...")
 
-# 如果原文件没有 CRS，就假设它是 WGS84 经纬度坐标
 if buildings.crs is None:
     buildings = buildings.set_crs(epsg=4326)
 
-# 注意：
-# 不建议直接在 EPSG:4326 经纬度坐标下计算 centroid。
-# 所以这里先转成加拿大常用投影 EPSG:3347，再计算 centroid。
+
 buildings_projected = buildings.to_crs(epsg=3347)
 
 centroids_projected = buildings_projected.geometry.centroid
 
-# 算完 centroid 后，再转回 EPSG:4326，这样可以得到 lat/lon
+
 centroids = gpd.GeoDataFrame(
     geometry=centroids_projected,
     crs="EPSG:3347"
 ).to_crs(epsg=4326)
 
-# 生成 household candidate dataframe
+# create household candidate dataframe
 households_df = pd.DataFrame({
     "household_id": [f"MB_H{i:06d}" for i in range(len(centroids))],
     "lat": centroids.geometry.y.astype(float),
     "lon": centroids.geometry.x.astype(float),
 })
 
-# 删除无效坐标，防止地图报错
 households_df = households_df[
     households_df["lat"].between(-90, 90)
     & households_df["lon"].between(-180, 180)
@@ -90,13 +86,11 @@ center_lon = float(households_df["lon"].mean())
 all_map = folium.Map(
     location=[center_lat, center_lon],
     zoom_start=6,
-    tiles="CartoDB positron",
+    tiles="OpenStreetMap",
     control_scale=True,
 )
 
-# 注意：
-# 这里有 632,982 个点，不能用普通 Marker。
-# FastMarkerCluster 比普通 MarkerCluster 更适合大量点。
+
 coords = households_df[["lat", "lon"]].values.tolist()
 
 FastMarkerCluster(
@@ -104,7 +98,7 @@ FastMarkerCluster(
     name=f"All building centroid household candidates ({len(households_df):,})"
 ).add_to(all_map)
 
-# 加一个中心说明点
+
 folium.Marker(
     location=[center_lat, center_lon],
     popup=(
