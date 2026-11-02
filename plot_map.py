@@ -132,7 +132,7 @@ sample_df = households_df.sample(
 preview_map = folium.Map(
     location=[center_lat, center_lon],
     zoom_start=6,
-    tiles="CartoDB positron",
+    tiles="OpenStreetMap",
     control_scale=True,
 )
 
