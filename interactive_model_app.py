@@ -272,7 +272,7 @@ def write_optimized_permanent_charger_map(
     fmap = folium.Map(
         location=[float(selected_df[lat_col].mean()), float(selected_df[lon_col].mean())],
         zoom_start=6,
-        tiles="CartoDB positron",
+        tiles="OpenStreetMap",
     )
 
     selected_layer = folium.FeatureGroup(name="Optimized fixed permanent chargers - GREEN", show=True)
